@@ -1,4 +1,4 @@
-"""Первый пример"""
+"""Второй пример"""
 
 
 class First_class:
@@ -6,19 +6,23 @@ class First_class:
         self.data = value
 
     def display(self):
-        print(self.data)
+        print(f"Старый вывод {__class__.__name__}:{self.data}")
+
+class Second_class(First_class):
+    """Пример переопределение метода"""
+    def display(self):
+        """Переопределение метода"""
+        print(f"Новый вывод {__class__.__name__}:{self.data}")
 
 
-X = First_class()
-Y = First_class()
 
-X.set_data(3.14)
-Y.set_data("Илья")
+if __name__ == '__main__':
+    X = First_class()
+    Y = First_class()
+    Z = Second_class()
 
-X.data = "Переопределение значения атрибута"
+    Z.set_data(1980)
+    X.set_data("Илья")
 
-X.newname = "Ирочка" # Новый атрибут
-
-X.display()
-Y.display()
-print(X.newname)
+    X.display()
+    Z.display()
