@@ -1,47 +1,31 @@
-"""Третий пример"""
+"""Простеший класс и что внутри
+   атрибут __dict__,__class__"""
 
 
-class First_class:
-    def set_data(self, value):
-        self.data = value
-
-    def display(self):
-        print(f"Старый вывод {__class__.__name__}:{self.data}")
-
-
-class Second_class(First_class):
-    """Пример переопределение метода"""
-
-    def display(self):
-        """Переопределение метода"""
-        print(f"Новый вывод {__class__.__name__}:{self.data}")
-
-
-class Third_class(Second_class):
-    def __init__(self, val):
-        self.data = val
-
-    def __add__(self, other):
-        """выражение + в коде автоматом запускает метод __add__"""
-        return Third_class(self.data + other) # Возвращает новый объект класса и запускает __init__
-
-    def __str__(self):
-        return f'{__class__.__name__}: {self.data}'
-
-    def mul(self, other):
-        """Изменяет значение атрибута"""
-        self.data *= other
+class Simple: pass
 
 
 if __name__ == '__main__':
-    X = Third_class('345')
-    X.display()
-    print(X)
-    B = X + 'abc' # '+' автоматом запускает метод __add__
-    B.display()
-    print(B)
-    X.mul(7)
-    print(X)
+    """Создание атрибутов класса виртуально без экз.класса"""
+    Simple.name = 'Vika'
+    Simple.age = 41
+    print(Simple.name, Simple.age)
+    """Создание экз.класса"""
+    X = Simple()
+    Y = Simple()
 
+    print(X.name)  # Появляются атрибуты взятые из класса
+    print(Y.name)  # Появляются атрибуты взятые из класса
 
+    X.name = 'Илья'  # X Получает собственный атрибут
+
+    print(X.name)
+    print(Y.name)
+
+    """Aтрибут __dict__"""
+    print(list(Simple.__dict__.keys())) # ['__module__', '__dict__', '__weakref__', '__doc__', 'name', 'age']
+    print(list(X.__dict__.keys())) # Х- Собственный атрибут name
+    print(list(Y.__dict__.keys())) # Y- Отсутствуют атрибуты
+    print(X.__dict__['name']) # Обращение к атрибуту через словарь
+    print(X.__class__) # Показывает связь с классом
 
