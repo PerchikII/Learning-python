@@ -1,38 +1,24 @@
-class C1:
-    """Суперкласс"""
-    x = 5
-    y = 10
+"""Первый пример"""
 
 
-class C2:
-    """Суперкласс"""
-    x = 1
-    w = 2
+class First_class:
+    def set_data(self, value):
+        self.data = value
 
-    def __repr__(self):
-        """Перегрузка метода"""
-        return f'Объект класса {__class__.__name__}'
+    def display(self):
+        print(self.data)
 
 
-class C(C1, C2):
-    """Подкласс"""
-    a = 11
-    y = 12
+X = First_class()
+Y = First_class()
 
-    def __init__(self, name: str):
-        """Инициализация атрибутов класса"""
-        self.name = name
+X.set_data(3.14)
+Y.set_data("Илья")
 
-    def __str__(self):
-        """Перегрузка метода"""
-        return f'Объект класса {__class__.__name__}'
+X.data = "Переопределение значения атрибута"
 
+X.newname = "Ирочка" # Новый атрибут
 
-E = C("Илья")  # Экз.класса
-print(E.name)  # Обращение к атрибуту
-E1 = C1()  # Экз.класса
-E2 = C2()  # Экз.класса
-
-print(E)
-print(E1)
-print(E2)
+X.display()
+Y.display()
+print(X.newname)
