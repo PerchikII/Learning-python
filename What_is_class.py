@@ -22,22 +22,32 @@ class Person:
 
 class Manager(Person):
     def __init__(self, name, pay):
-        Person.__init__(self, name, 'Менеджер',pay)
+        Person.__init__(self, name, 'Менеджер', pay)
 
     def give_rise(self, percent, bonus=.10):
         return Person.give_rise(self, int(((self.pay / 100) * percent) + self.pay) * bonus)
 
 
+class Department:
+    def __init__(self, *args):
+        self.members = list(args)
+    def addMember(self, person):
+        self.members.append(person)
+    def give_Raises(self, percent):
+        for person in self.members:
+            person.give_rise(percent)
+    def showAll(self):
+        for person in self.members:
+            print(person)
+
+
 if __name__ == '__main__':
     ilya = Person('Абвгд Илья', 'Водитель', 2000)
     vika = Person('Аб_вгд Вика', 'Бухгалтер', 1500)
-    ira = Manager('Абв_гд Ира', 200)
-    ilya.give_last_name(), ilya.give_rise(50)
-    vika.give_last_name(), vika.give_rise(20)
-    ira.give_last_name(), ira.give_rise(10)
-    print(ilya.__class__)
-    print(vika.__class__)
-    print(ira.__class__)
-    for obj in (ilya, vika, ira):
-        obj.give_rise(25)
-        print(obj)
+    ira = Manager('Абв_гд Ира', 300)
+
+    devel = Department(ilya,vika)
+    devel.give_Raises(100)
+    devel.showAll()
+    devel.addMember(ira)
+    devel.showAll()
