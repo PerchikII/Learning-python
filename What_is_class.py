@@ -32,6 +32,7 @@ if __name__ == '__main__':
     # print(ilya.give_last_name(), ilya.give_rise(50))
     # print(vika.give_last_name(), vika.give_rise(20))
     # print(ira.give_last_name(), ira.give_rise(10))
+
     for obj in (ilya,vika,ira):
         obj.give_rise(25)
         print(obj)
