@@ -14,7 +14,7 @@ class Person:
         return self.name.split()[-1]
 
     def give_rise(self, percent):
-        return int(((self.pay / 100) * percent) + self.pay)
+        self.pay = int(((self.pay / 100) * percent) + self.pay)
 
     def __repr__(self):
         return f'Имя: {self.name.split()[-1]}\nДолжность: {self.job}\nЗП: {self.pay}'
@@ -26,9 +26,13 @@ class Manager(Person):
 
 
 if __name__ == '__main__':
-    ilya = Person('Илья Абвгд', 'Bus', 2000)
-    vika = Person('Вика Аб_вгд', 'Booh', 1500)
-    ira = Manager('Ира Абв_гд', 'садик',200)
-    print(ilya.give_last_name(), ilya.give_rise(50))
-    print(vika.give_last_name(), vika.give_rise(20))
-    print(ira.give_last_name(), ira.give_rise(10))
+    ilya = Person('Абвгд Илья', 'Bus', 2000)
+    vika = Person('Аб_вгд Вика', 'Booh', 1500)
+    ira = Manager('Абв_гд Ира', 'садик',200)
+    # print(ilya.give_last_name(), ilya.give_rise(50))
+    # print(vika.give_last_name(), vika.give_rise(20))
+    # print(ira.give_last_name(), ira.give_rise(10))
+    for obj in (ilya,vika,ira):
+        obj.give_rise(25)
+        print(obj)
+
