@@ -1,4 +1,5 @@
-"""Добавление методов, реализующих поведение"""
+"""Настройка поведения за счет
+создания подклассов"""
 
 
 class Person:
@@ -13,14 +14,21 @@ class Person:
         return self.name.split()[-1]
 
     def give_rise(self, percent):
-        return int(((self.pay / 100)*percent) + self.pay)
-
+        return int(((self.pay / 100) * percent) + self.pay)
 
     def __repr__(self):
         return f'Имя: {self.name.split()[-1]}\nДолжность: {self.job}\nЗП: {self.pay}'
 
 
-ilya = Person('Илья', 'Bus', 2000)
-vika = Person('Вика Алесина', 'Booh', 1500)
-print(ilya.give_last_name(), ilya.give_rise(50))
-print(vika.give_last_name(), vika.give_rise(20))
+class Manager(Person):
+    def give_rise(self, percent,bonus=.10):
+        return Person.give_rise(self,int(((self.pay / 100) * percent) + self.pay)*bonus)
+
+
+if __name__ == '__main__':
+    ilya = Person('Илья Абвгд', 'Bus', 2000)
+    vika = Person('Вика Аб_вгд', 'Booh', 1500)
+    ira = Manager('Ира Абв_гд', 'садик',200)
+    print(ilya.give_last_name(), ilya.give_rise(50))
+    print(vika.give_last_name(), vika.give_rise(20))
+    print(ira.give_last_name(), ira.give_rise(10))
