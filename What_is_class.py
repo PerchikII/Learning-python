@@ -1,5 +1,5 @@
-"""Настройка поведения за счет
-создания подклассов"""
+"""Метод __getattr__(self, item),
+ф-ция getattr(object_name,attribute_name,Сообщение, если ключ не найден)"""
 
 
 class Person:
@@ -16,6 +16,9 @@ class Person:
     def give_rise(self, percent):
         self.pay = int(((self.pay / 100) * percent) + self.pay)
 
+    def __getattr__(self, item):
+        return f'Ключа {item} не существует.Работает __getattr__ в классе {__class__.__name__}.'
+
     def __repr__(self):
         return f'Имя: {self.name.split()[-1]}\nДолжность: {self.job}\nЗП: {self.pay}'
 
@@ -27,6 +30,8 @@ class Manager(Person):
     def give_rise(self, percent, bonus=.10):
         return Person.give_rise(self, int(((self.pay / 100) * percent) + self.pay) * bonus)
 
+    def __getattr__(self, item):
+        return f'Ключа {item} у {self.name} не существует.\n\tРаботает __getattr__ в классе {__class__.__name__}.'
 
 class Department:
     def __init__(self, *args):
@@ -42,12 +47,12 @@ class Department:
 
 
 if __name__ == '__main__':
-    ilya = Person('Абвгд Илья', 'Водитель', 2000)
+    Ilya = Person('Абвгд Илья', 'Водитель', 2000)
     vika = Person('Аб_вгд Вика', 'Бухгалтер', 1500)
-    ira = Manager('Абв_гд Ира', 300)
+    Ira = Manager('Абв_гд Ира', 200)
+    print(getattr(Ira, 'test', 'Сообщение, если ключ не найден'))  # Ira.__dict__.get(key, 'Сообщение, если ключ не найден')
+    for key in Ira.__dict__:
+        print(key,'=>',getattr(Ira,key,'Сообщение, если ключ не найден'))
 
-    devel = Department(ilya,vika)
-    devel.give_Raises(100)
-    devel.showAll()
-    devel.addMember(ira)
-    devel.showAll()
+
+
