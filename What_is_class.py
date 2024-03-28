@@ -21,19 +21,23 @@ class Person:
 
 
 class Manager(Person):
-    def give_rise(self, percent,bonus=.10):
-        return Person.give_rise(self,int(((self.pay / 100) * percent) + self.pay)*bonus)
+    def __init__(self, name, pay):
+        Person.__init__(self, name, 'Менеджер',pay)
+
+    def give_rise(self, percent, bonus=.10):
+        return Person.give_rise(self, int(((self.pay / 100) * percent) + self.pay) * bonus)
 
 
 if __name__ == '__main__':
-    ilya = Person('Абвгд Илья', 'Bus', 2000)
-    vika = Person('Аб_вгд Вика', 'Booh', 1500)
-    ira = Manager('Абв_гд Ира', 'садик',200)
-    # print(ilya.give_last_name(), ilya.give_rise(50))
-    # print(vika.give_last_name(), vika.give_rise(20))
-    # print(ira.give_last_name(), ira.give_rise(10))
-
-    for obj in (ilya,vika,ira):
+    ilya = Person('Абвгд Илья', 'Водитель', 2000)
+    vika = Person('Аб_вгд Вика', 'Бухгалтер', 1500)
+    ira = Manager('Абв_гд Ира', 200)
+    ilya.give_last_name(), ilya.give_rise(50)
+    vika.give_last_name(), vika.give_rise(20)
+    ira.give_last_name(), ira.give_rise(10)
+    print(ilya.__class__)
+    print(vika.__class__)
+    print(ira.__class__)
+    for obj in (ilya, vika, ira):
         obj.give_rise(25)
         print(obj)
-
