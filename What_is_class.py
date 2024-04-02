@@ -1,56 +1,38 @@
-from classtools import AttrDisplay
+"""Методики связывания классов"""
+
+class Super:
+    def method(self):
+        print('in Super.method')
+
+    def delegate(self):
+        self.action()
 
 
-class Person(AttrDisplay):
-    """Персонаж может не иметь работы и соответственно зарплаты"""
-
-    def __init__(self, name: str, job: str = None, pay: int = 0):  # Конструктор принимает три аргумента
-        self.name = name
-        self.job = job
-        self.pay = pay
-
-    def give_last_name(self):
-        return self.name.split()[-1]
-
-    def give_rise(self, percent):
-        self.pay = int(((self.pay / 100) * percent) + self.pay)
+class Inheritor(Super):
+    pass
 
 
-    # def __repr__(self):
-    #     return f'Имя: {self.name.split()[-1]}\nДолжность: {self.job}\nЗП: {self.pay}'
+class Replacer(Super):
+    def method(self):
+        print('in Replacer.method')
 
 
-class Manager(Person):
-    def __init__(self, name, pay):
-        Person.__init__(self, name, 'Менеджер', pay)
-
-    def give_rise(self, percent, bonus=.10):
-        return Person.give_rise(self, int(((self.pay / 100) * percent) + self.pay) * bonus)
-
+class Extender(Super):
+    def method(self):
+        print('starting Extender.method')
+        Super.method(self)
+        print('ending Extender.method')
 
 
-class Department:
-    def __init__(self, *args):
-        self.members = list(args)
-    def addMember(self, person):
-        self.members.append(person)
-    def give_Raises(self, percent):
-        for person in self.members:
-            person.give_rise(percent)
-    def showAll(self):
-        for person in self.members:
-            print(person)
+class Provider(Super):
+    def action(self):
+        print('in Provider.action')
 
 
 if __name__ == '__main__':
-    Ilya = Person('Ilya')
-    Vika = Person('Вика','Бух.',555)
-    print(Ilya)
-    print(Vika)
-
-
-
-
-
-
-
+    for klass in (Inheritor, Replacer, Extender):
+        print('\n' + klass.__name__)
+        klass().method()
+    print('\nProvider...')
+    x = Provider()
+    x.delegate()
