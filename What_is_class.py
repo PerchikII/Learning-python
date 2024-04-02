@@ -1,4 +1,5 @@
-"""Методики связывания классов"""
+"""Методики связывания классов
+Абстрактный суперкласс. NotImplementedError"""
 
 class Super:
     def method(self):
@@ -6,6 +7,9 @@ class Super:
 
     def delegate(self):
         self.action()
+    def action(self):
+        raise NotImplementedError ("Метод 'action' Не реализован")
+
 
 
 class Inheritor(Super):
@@ -24,9 +28,9 @@ class Extender(Super):
         print('ending Extender.method')
 
 
-class Provider(Super):
-    def action(self):
-        print('in Provider.action')
+class Provider(Super):...
+    # def action(self):
+    #     print('in Provider.action')
 
 
 if __name__ == '__main__':
