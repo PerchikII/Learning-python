@@ -1,5 +1,6 @@
 """Членство:
-__iter__ стал генератором """
+Если __iter__ и __contains__ отсутствуют,
+ работает __getitem__"""
 
 
 class Iters:
@@ -10,23 +11,23 @@ class Iters:
         print(f'get {i}:', end='')  # Также для индексирования, нарезания
         return self.data[i]
 
-    def __iter__(self):             # Предпочтительнее для итерации
-        print('iter=> ', end=' ')  # Допускает только один активный итератор
-        for i in self.data:
-            yield i
-            print('next:', end='')
+    # def __iter__(self):             # Предпочтительнее для итерации
+    #     print('iter=> ', end=' ')  # Допускает только один активный итератор
+    #     for i in self.data:
+    #         yield i
+    #         print('next:', end='')
 
-    # def __next__(self):
-    #     print('next:::', end='')
-    #     if self.ix == len(self.data):
-    #         raise StopIteration
-    #     item = self.data[self.ix]
-    #     self.ix += 1
-    #     return item
+    def __next__(self):
+        print('next:::', end='')
+        if self.ix == len(self.data):
+            raise StopIteration
+        item = self.data[self.ix]
+        self.ix += 1
+        return item
 
-    def __contains__(self, x):
-        print('contains:', end='')
-        return x in self.data
+    # def __contains__(self, x):
+    #     print('contains:', end='')
+    #     return x in self.data
 
 
 if __name__ == '__main__':
