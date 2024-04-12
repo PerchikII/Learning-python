@@ -1,5 +1,5 @@
 """Членство:
-__contains__ ,__ iter__ , __getitem__ """
+__iter__ стал генератором """
 
 
 class Iters:
@@ -12,16 +12,17 @@ class Iters:
 
     def __iter__(self):             # Предпочтительнее для итерации
         print('iter=> ', end=' ')  # Допускает только один активный итератор
-        self.ix = 0
-        return self
+        for i in self.data:
+            yield i
+            print('next:', end='')
 
-    def __next__(self):
-        print('next:::', end='')
-        if self.ix == len(self.data):
-            raise StopIteration
-        item = self.data[self.ix]
-        self.ix += 1
-        return item
+    # def __next__(self):
+    #     print('next:::', end='')
+    #     if self.ix == len(self.data):
+    #         raise StopIteration
+    #     item = self.data[self.ix]
+    #     self.ix += 1
+    #     return item
 
     def __contains__(self, x):
         print('contains:', end='')
@@ -30,9 +31,8 @@ class Iters:
 
 if __name__ == '__main__':
     X = Iters([44, 77, 99, 140, 417])
-    print(3 in X)       # первым вызывается метод __contains__
-    """Запускаем цикл- отрабатывает __iter__ передавая итеробъект в метод __next__.
-    __next__ возвращает срез"""
+    print(44 in X)       # первым вызывается метод __contains__
+    """Запускаем цикл- отрабатывает __iter__, который стал генератором"""
     for i in X:
         print(i, end=' II ')
 
