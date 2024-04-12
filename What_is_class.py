@@ -1,22 +1,47 @@
-"""Итерируемые объекты.
-     __iter__ + yield """
-class Squares:
-    def __init__(self, start: int, stop: int):
-        self.value = start
-        self.stop = stop
-
-    def __iter__(self):
-        for i in range(self.value,self.stop):
-            yield i ** 2
-
-    # def __next__(self):
-    #     if self.value == self.stop:
-    #         raise StopIteration
-    #     self.value += 1
-    #     return self.value ** 2
+"""Членство:
+__contains__ ,__ iter__ , __getitem__ """
 
 
-X = Squares(5, 9)
-print(list(X))
+class Iters:
+    def __init__(self, value):
+        self.data = value
+
+    def __getitem__(self, i):       # Запасной вариант для итерации
+        print(f'get {i}:', end='')  # Также для индексирования, нарезания
+        return self.data[i]
+
+    def __iter__(self):             # Предпочтительнее для итерации
+        print('iter=> ', end=' ')  # Допускает только один активный итератор
+        self.ix = 0
+        return self
+
+    def __next__(self):
+        print('next:::', end='')
+        if self.ix == len(self.data):
+            raise StopIteration
+        item = self.data[self.ix]
+        self.ix += 1
+        return item
+
+    def __contains__(self, x):
+        print('contains:', end='')
+        return x in self.data
 
 
+if __name__ == '__main__':
+    X = Iters([44, 77, 99, 140, 417])
+    print(3 in X)       # первым вызывается метод __contains__
+    """Запускаем цикл- отрабатывает __iter__ передавая итеробъект в метод __next__.
+    __next__ возвращает срез"""
+    for i in X:
+        print(i, end=' II ')
+
+    print()
+    print([i ** 2 for i in X])
+    print(list(map(bin, X)))
+    I = iter(X)
+    while True:
+        try:
+            print(next(I), end='')
+        except StopIteration:
+            break
