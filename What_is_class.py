@@ -1,15 +1,18 @@
-"""Метод __call__"""
-class Callee:
-    def __init__(self,data):
-        self.data = data
-    def __call__ (self, other):   # Перехватывает вызовы экземпляра
-        print('Called:', other)
-        return self.data * other
+"""     Метод __call__
+Лучший способ предохранения
+информации о состоянии в языке Python"""
 
-class Callee:
-    def __call__(self, *pargs, **kargs):
-        print('Called:',pargs,kargs)
+
+class ButtonColor:
+    def __init__(self, color:str):
+        self.color = color
+
+    def __call__(self):
+        return self.color
+
 
 if __name__ == '__main__':
-    C = Callee(5)
-    print(C(3))
+    B = ButtonColor('Blue')
+    R = ButtonColor('Red')
+    print(B())
+    print(R())
