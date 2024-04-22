@@ -1,25 +1,26 @@
-"""Информация для интроспекции объектов связанных методов"""
+"""Классы являются объектами:
+    обобщенные фабрики объектов.
+    Задачи ООП в Python решаются только с помощью объектов, полученных из классов."""
 
-class Number:
-    def __init__(self, base):
-        self .base = base
-    def double (self):
-        return self.base * 2
-    def triple(self):
-        return self.base * 3
+
+def factory(aClass, *pargs, **kargs):  # Кортеж или словарь с переменным
+    return aClass(*pargs, **kargs)  # Вызывает aClass (или apply в Python 2.X)
+
+
+class Spam:
+    def doit(self, message):
+        print(message)
+
+
+class Person:
+    def __init__(self, name, job=None):
+        self.name = name
+        self.job = job
+
 
 if __name__ == '__main__':
-    x = Number(2)
-    у = Number(3)
-    z = Number(4)
-    bound = x.double
-    print(bound.__self__)
-    print(x.double.__self__)
-    print(bound.__self__.base)  # Значение, которое получил экз при создании.
-    print(bound.__func__)
-    print(bound())
+    object1 = factory(Spam)  # Создать объект Spam
+    object2 = factory(Person, 'Arthur', 'King')  # Создать объект Person
+    objects = factory(Person, name=' Brian')
 
-
-    # acts = [x.double, у.double, у.triple, z.double] # Список связанных методов
-    # for act in acts:                # Присваивание метода имени 'act'
-    #     print(act())                # Вызов метода
+    object1.doit('Привет')
