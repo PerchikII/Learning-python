@@ -1,19 +1,19 @@
-"""Метод вызывается только через класс и никогда через экземпляр"""
+"""Передача и вызов обьектов связанных методов"""
 
-
-class Selfless:
-    def __init__(self, data):
-        self.data = data
-
-    def selfless(arg1, arg2):       # Простая функция в Python З.Х
-        return arg1 + arg2
-
-    def normal(self, arg1, arg2):  # При вызове ожидается экземпляр
-        return self.data + arg1 + arg2
-
+class Number:
+    def __init__(self, base):
+        self .base = base
+    def double (self):
+        return self.base * 2
+    def triple(self):
+        return self.base * 3
 
 if __name__ == '__main__':
-    X = Selfless(2)
-    print(X.normal(3, 4))
-    print(Selfless.normal(X, 3, 4))
-    print(Selfless.selfless(3, 4))
+    x = Number(2)
+    у = Number(3)
+    z = Number(4)
+    x.double()
+
+    acts = [x.double, у.double, у.triple, z.double] # Список связанных методов
+    for act in acts:                # Присваивание метода имени 'act'
+        print(act())                # Вызов метода
