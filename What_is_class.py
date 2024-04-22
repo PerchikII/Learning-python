@@ -1,32 +1,21 @@
-"""Вложенные классы:
-правила областей видимости LEGB. """
-print('-' * 40)
-X = 100
+"""Методы являются объектами:
+связанные или несвязанные методы"""
+
+class Spam:
+    def doit(self, message):
+        print(message)
 
 
-def nester():
-    X = 30
-    print(f'Ф-ция nester X= {X}')
+if __name__ == '__main__':
+    obj = Spam()
+    obj.doit('hello world')
 
-    class C:
-        X = "Атрибут класса С"
-        print(X)
-
-        def method_1(self):
-            print(f'Обл.видим в ф-ции method_1 X= {X}')
-            print(f'{self.X} в method_1')
-
-        def method_2(self):
-            X = 3
-            print(f'Локальная об.видимости method_2 Х={X}')
-            self.X = 333
-            print(f'Экзепляру класса определили атрибут {self.X}')
-
-    I = C()
-    I.method_1()
-    I.method_2()
+    objectl = Spam()
+    х = objectl.doit         # Объект связанного метода: экземпляр + функция
+    х('hello world')
 
 
-print(f'Глобальная область ур-нь модуля X= {X}')
-nester()
-print('-' * 40)
+    objectl = Spam()
+    t = Spam.doit           # Объект несвязанного метода
+    t(objectl, 'howdy')
+
