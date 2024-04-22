@@ -1,21 +1,19 @@
-"""Методы являются объектами:
-связанные или несвязанные методы"""
+"""Метод вызывается только через класс и никогда через экземпляр"""
 
-class Spam:
-    def doit(self, message):
-        print(message)
+
+class Selfless:
+    def __init__(self, data):
+        self.data = data
+
+    def selfless(arg1, arg2):       # Простая функция в Python З.Х
+        return arg1 + arg2
+
+    def normal(self, arg1, arg2):  # При вызове ожидается экземпляр
+        return self.data + arg1 + arg2
 
 
 if __name__ == '__main__':
-    obj = Spam()
-    obj.doit('hello world')
-
-    objectl = Spam()
-    х = objectl.doit         # Объект связанного метода: экземпляр + функция
-    х('hello world')
-
-
-    objectl = Spam()
-    t = Spam.doit           # Объект несвязанного метода
-    t(objectl, 'howdy')
-
+    X = Selfless(2)
+    print(X.normal(3, 4))
+    print(Selfless.normal(X, 3, 4))
+    print(Selfless.selfless(3, 4))
