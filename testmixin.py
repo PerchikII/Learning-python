@@ -2,7 +2,7 @@ import importlib
 
 def tester(listerclass, sept=False) :
     class Super:
-        def __init__ (self) :
+        def __init__(self):
             self.datal = 'spam'
         def ham(self) :
             pass
@@ -19,9 +19,9 @@ def tester(listerclass, sept=False) :
 
 def testByNames(modname, classname, sept=False):
     modobject = importlib.import_module(modname)
-
     listerclass = getattr(modobject, classname)
-
     tester(listerclass, sept)
+
+
 if __name__ == '__main__' :
-    testByNames('What_is_class', 'Listinstance', True)
+    testByNames('listinstance', 'Listinstance', True)
